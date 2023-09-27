@@ -15,6 +15,7 @@ void main() {
   var RLE = '\u202B';
   var PDF = '\u202C';
   var PDS = '\u202C';
+  var PDC = '\u202C';
 
   test('isRtlLang', () {
     expect(Bidi.isRtlLanguage('en'), isFalse);
