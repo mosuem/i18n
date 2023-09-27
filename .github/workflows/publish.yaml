@@ -11,4 +11,4 @@ on:
 jobs:
   publish:
     if: ${{ github.repository_owner == 'mosuem' }}
-    uses: dart-lang/ecosystem/.github/workflows/publish.yaml@main
+    uses: mosuem/ecosystem/.github/workflows/publish.yaml@main
