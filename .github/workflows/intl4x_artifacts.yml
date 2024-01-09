@@ -30,9 +30,7 @@ jobs:
           repository: unicode-org/icu4x
 
       - name: Setup | Rust
-        uses: ATiltedTree/setup-rust@v1
-        with:
-          rust-version: stable
+        uses: actions-rust-lang/setup-rust-toolchain@c7e1de28469b16b21a170a200a7a9e810bb5cdff
       
       - name: Generate ${{ env.cratename }}
         run: |
