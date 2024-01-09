@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+// ignore_for_file: unused_local_variable
+
 library bidi_utils_test;
 
 import 'package:intl/intl.dart';
@@ -14,6 +16,8 @@ void main() {
   var LRE = '\u202A';
   var RLE = '\u202B';
   var PDF = '\u202C';
+  var PDS = '\u202C';
+  var PDC = '\u202C';
 
   test('isRtlLang', () {
     expect(Bidi.isRtlLanguage('en'), isFalse);
