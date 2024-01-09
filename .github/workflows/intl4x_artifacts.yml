@@ -10,13 +10,19 @@ on:
 env:
     cratename: icu_capi
     release: true
-    CARGO_TARGET_DIR: build/
 
 jobs:
   generate:
     strategy:
         matrix:
           os: [ubuntu-latest, windows-latest, macos-latest]
+          include:
+            - os: macos-latest
+              dylib: dylib
+            - os: windows-latest
+              dylib: dll
+            - os: ubuntu-latest
+              dylib: so
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -40,4 +46,4 @@ jobs:
         uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392
         with:
           name: lib-${{ matrix.os }}
-          path: ffi/dart/build_artifacts/release/lib/
+          path: ffi/dart/build_artifacts/release/libicu_capi.${{ matrix.dylib }}
