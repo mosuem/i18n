@@ -28,8 +28,9 @@ jobs:
         uses: ATiltedTree/setup-rust@v1
         with:
           rust-version: stable
-
-      - run: |
+      
+      - name: Generate ${{ env.cratename }}
+        run: |
           cd ffi/dart/
           cargo rustc -p ${{ env.cratename }} --crate-type=cdylib --release --target-dir build_artifacts/
 
@@ -39,4 +40,4 @@ jobs:
         uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392
         with:
           name: lib-${{ matrix.os }}
-          path: build_artifacts/release/lib/
+          path: ffi/dart/build_artifacts/release/lib/
