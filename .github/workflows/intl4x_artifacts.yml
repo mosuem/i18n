@@ -9,7 +9,6 @@ on:
 
 env:
     cratename: icu_capi
-    release: true
 
 jobs:
   generate:
@@ -41,8 +40,12 @@ jobs:
           cargo rustc -p ${{ env.cratename }} --crate-type=cdylib --release --target-dir build_artifacts/
 
       - run: tree
+        if: ${{ matrix.os != 'macos-latest' }}
 
-      - name: Upload markdown
+      - run: find .
+        if: ${{ matrix.os == 'macos-latest' }}
+
+      - name: Upload generated build file
         uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392
         with:
           name: lib-${{ matrix.os }}
