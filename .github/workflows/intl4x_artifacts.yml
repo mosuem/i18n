@@ -1,0 +1,36 @@
+name: package:intl4x
+permissions: read-all
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 0' # weekly
+
+env:
+    cratename: icu_capi
+    release: true
+
+jobs:
+  generate:
+    strategy:
+        matrix:
+          version: [10, 12, 14]
+          os: [ubuntu-latest, windows-latest]
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
+
+      - name: Setup | Rust
+        uses: ATiltedTree/setup-rust@v1
+
+      - run: cargo rustc -p ${{ env.cratename }} --crate-type=cdylib --release
+
+      - run: tree
+
+      - name: Upload markdown
+        uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392
+        with:
+          name: lib-${{ matrix.os }}
+          path: release/lib/
