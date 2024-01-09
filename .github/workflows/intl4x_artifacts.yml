@@ -10,13 +10,13 @@ on:
 env:
     cratename: icu_capi
     release: true
+    CARGO_TARGET_DIR: build/
 
 jobs:
   generate:
     strategy:
         matrix:
-          version: [10, 12, 14]
-          os: [ubuntu-latest, windows-latest]
+          os: [ubuntu-latest, windows-latest, macos-latest]
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -31,7 +31,7 @@ jobs:
 
       - run: |
           cd ffi/dart/
-          cargo rustc -p ${{ env.cratename }} --crate-type=cdylib --release
+          cargo rustc -p ${{ env.cratename }} --crate-type=cdylib --release --target-dir build_artifacts/
 
       - run: tree
 
@@ -39,4 +39,4 @@ jobs:
         uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392
         with:
           name: lib-${{ matrix.os }}
-          path: release/lib/
+          path: build_artifacts/release/lib/
