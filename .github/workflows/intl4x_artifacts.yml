@@ -24,6 +24,8 @@ jobs:
 
       - name: Setup | Rust
         uses: ATiltedTree/setup-rust@v1
+        with:
+          rust-version: stable
 
       - run: cargo rustc -p ${{ env.cratename }} --crate-type=cdylib --release
 
