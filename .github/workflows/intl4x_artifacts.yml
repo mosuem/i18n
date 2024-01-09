@@ -21,13 +21,17 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
+        with:
+          repository: unicode-org/icu4x
 
       - name: Setup | Rust
         uses: ATiltedTree/setup-rust@v1
         with:
           rust-version: stable
 
-      - run: cargo rustc -p ${{ env.cratename }} --crate-type=cdylib --release
+      - run: |
+          cd ffi/dart/
+          cargo rustc -p ${{ env.cratename }} --crate-type=cdylib --release
 
       - run: tree
 
